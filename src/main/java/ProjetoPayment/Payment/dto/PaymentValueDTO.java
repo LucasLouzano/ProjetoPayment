@@ -1,2 +1,8 @@
-package ProjetoPayment.Payment.dto;public class PaymentValueDTO {
+package ProjetoPayment.Payment.dto;
+
+import lombok.Data;
+
+@Data
+public class PaymentValueDTO {
+    double valor;
 }
