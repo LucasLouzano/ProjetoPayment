@@ -1,2 +1,7 @@
-package ProjetoPayment.Payment.controller;public class PaymentValueController {
+package ProjetoPayment.Payment.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class PaymentValueController {
 }
