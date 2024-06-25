@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/pagamento")
 public class PaymentValueController {
+    @Autowired
     private PaymentValueService service;
     @Autowired
     private PaymentValueMapper Mapper;
@@ -27,9 +29,9 @@ public class PaymentValueController {
         return ResponseEntity.ok(valorPagamento);
     }
     @PostMapping
-    public ResponseEntity<ValuePaymentDTO> savePaymentValue(@RequestBody @Valid PaymentValue paymentValue) {
-        PaymentValueDTO valorPagamentoDTO = service.save(paymentValue);
-        ValuePaymentDTO valuePaymentDTO = Mapper.mapValorPagToDto(valorPagamentoDTO);
+    public ResponseEntity<ValuePaymentDTO> savePaymentValue(@RequestBody @Valid PaymentValue dto) {
+        PaymentValueDTO PaymentDTO = service.save(dto);
+        ValuePaymentDTO valuePaymentDTO = Mapper.mapValorPagToDto(PaymentDTO);
         if (valuePaymentDTO == null) {
             return ResponseEntity.notFound().build();
         }

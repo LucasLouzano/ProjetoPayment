@@ -1,8 +1,21 @@
 package ProjetoPayment.Payment.dto;
 
-import lombok.Data;
 
-@Data
 public class ValuePaymentDTO {
     double valor;
+
+    public ValuePaymentDTO() {
+    }
+
+    public ValuePaymentDTO(double valor) {
+        this.valor = valor;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
 }
