@@ -20,7 +20,7 @@ public class PaymentValueController {
     @Autowired
     private PaymentValueMapper Mapper;
 
-    @GetMapping("/{snValorAtual}")
+    @GetMapping("/{snCurrentValue}")
     public ResponseEntity<PaymentValue> getPaymentValueBy(@PathVariable String snCurrentValue) {
         PaymentValue valorPagamento = service.findBySnCurrentValue(snCurrentValue);
         if (valorPagamento == null) {
