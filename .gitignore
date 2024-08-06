@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+# Ignorar arquivos de socket
+volumes/mysql-payment/mysql.sock
+
+# Ignorar arquivos de configuração temporários
+volumes/mysql-payment/auto.cnf
+volumes/mysql-payment/binlog.index
+volumes/mysql-payment/ib_buffer_pool
