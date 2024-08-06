@@ -1,28 +1,30 @@
 version: '3.8'
 services:
-  database:
+  payment-database:
     image: mysql:8.0.32
-    container_name: my-mysql-container
+    container_name: payment-mysql-container
     restart: always
     environment:
-      MYSQL_DATABASE: 'socialmedia'
-      MYSQL_USER: 'socialmedia_user'
-      MYSQL_PASSWORD: 'socialmedia_pass'
-      MYSQL_ROOT_PASSWORD: '56146708'
+      MYSQL_DATABASE: 'payment'
+      MYSQL_USER: 'payment_user'
+      MYSQL_PASSWORD: 'payment_pass'
+      MYSQL_ROOT_PASSWORD: 'payment_pass'
     ports:
-      - '3306:3306'
-    expose:
-      - '3306'
+      - '3307:3306'
     volumes:
-      - './volumes/mysql:/var/lib/mysql'
-      
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: my-phpmyadmin-container
-    restart: always
-    environment:
-      PMA_HOST: database
-      PMA_USER: socialmedia_user
-      PMA_PASSWORD: socialmedia_pass
+      - './volumes/mysql-payment:/var/lib/mysql'
+
+  springboot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-springboot-app
     ports:
-      - '8081:80'
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://payment-database:3306/payment
+      SPRING_DATASOURCE_USERNAME: payment_user
+      SPRING_DATASOURCE_PASSWORD: payment_pass
+      SERVER_PORT: 8083
+    depends_on:
+      - payment-database
