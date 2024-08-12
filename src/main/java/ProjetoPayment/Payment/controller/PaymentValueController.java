@@ -29,13 +29,14 @@ public class PaymentValueController {
         return ResponseEntity.ok(valorPagamento);
     }
     @PostMapping
-    public ResponseEntity<ValuePaymentDTO> savePaymentValue(@RequestBody @Valid PaymentValue dto) {
-        PaymentValueDTO PaymentDTO = service.save(dto);
-        ValuePaymentDTO valuePaymentDTO = Mapper.mapValorPagToDto(PaymentDTO);
-        if (valuePaymentDTO == null) {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<?> savePaymentValue(@RequestBody @Valid PaymentValue dto) {
+        try {
+            PaymentValueDTO PaymentDTO = service.save(dto);
+            ValuePaymentDTO valuePaymentDTO = Mapper.mapValorPagToDto(PaymentDTO);
+                return ResponseEntity.ok().body(valuePaymentDTO);
+            }catch(IllegalStateException e){
+                return ResponseEntity.status(403).body(e.getMessage());
         }
-        return ResponseEntity.ok().body(valuePaymentDTO);
     }
     @GetMapping("/paymentValues")
     public ResponseEntity <List<PaymentValue>> getPaymentValue(){
@@ -44,6 +45,14 @@ public class PaymentValueController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok().body(paymentValuesList);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PaymentValue> deletePaymentValue(@PathVariable Long id){
+        PaymentValue paymentValue = service.deleteAll(id);
+        if (paymentValue == null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(paymentValue);
 
     }
 }
