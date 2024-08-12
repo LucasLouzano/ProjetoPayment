@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface PaymentValueRepository extends JpaRepository<PaymentValue, Long> {
     Optional<PaymentValue> findBySnCurrentValue(String snCurrentValue);
+
 }
