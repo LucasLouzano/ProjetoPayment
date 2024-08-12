@@ -18,6 +18,7 @@ public class PaymentValueServiceImpl implements PaymentValueService {
     private PaymentValueRepository repository;
     @Autowired
     private PaymentValueMapper mapper;
+
     @Override
     public PaymentValue findBySnCurrentValue(String snCurrentValue) {
         return repository.findBySnCurrentValue(snCurrentValue).orElse(null);
@@ -27,10 +28,12 @@ public class PaymentValueServiceImpl implements PaymentValueService {
     @Override
     public PaymentValueDTO save(PaymentValue paymentValue) {
         PaymentValue valuePgm = this.findBySnCurrentValue("S");
+        if (valuePgm != null && isPaymentOverdue(valuePgm.getData())) {
+            throw new IllegalStateException("O pagamento está em atraso. Não é possível salvar um novo valor de pagamento.");
+        }
         if (valuePgm != null) {
             valuePgm.setSnCurrentValue("N");
             repository.save(valuePgm);
-
         }
         PaymentValue newPaymentValue = new PaymentValue();
         newPaymentValue.setValor(paymentValue.getValor());
@@ -39,9 +42,18 @@ public class PaymentValueServiceImpl implements PaymentValueService {
         repository.save(newPaymentValue);
         return mapper.PagValueToPagValueDTO(newPaymentValue);
     }
-
+    public boolean isPaymentOverdue(LocalDateTime paymentDate) {
+        LocalDateTime paymentDueDate = paymentDate.plusMonths(1);
+        return LocalDateTime.now().isAfter(paymentDueDate);
+    }
+//plusMinutes(1)
     @Override
     public List<PaymentValue> findAll() {
         return repository.findAll();
+    }
+    @Override
+    public PaymentValue deleteAll(Long id) {
+       repository.deleteAll();
+        return null;
     }
 }
