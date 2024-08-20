@@ -8,6 +8,5 @@ public interface PaymentValueService {
     PaymentValue findBySnCurrentValue(String snCurrentValue);
     PaymentValueDTO save(PaymentValue dto);
     List<PaymentValue> findAll();
-    PaymentValue deleteAll(Long id);
 
 }
