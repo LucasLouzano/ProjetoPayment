@@ -2,6 +2,7 @@ package ProjetoPayment.Payment.controller;
 
 import ProjetoPayment.Payment.dto.PaymentValueDTO;
 import ProjetoPayment.Payment.dto.ValuePaymentDTO;
+import ProjetoPayment.Payment.enuns.PaymentStatus;
 import ProjetoPayment.Payment.mapper.PaymentValueMapper;
 import ProjetoPayment.Payment.model.PaymentValue;
 import ProjetoPayment.Payment.service.PaymentValueService;
@@ -13,16 +14,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pagamento")
+@RequestMapping("/payment")
 public class PaymentValueController {
     @Autowired
     private PaymentValueService service;
     @Autowired
     private PaymentValueMapper Mapper;
 
-    @GetMapping("/{snCurrentValue}")
-    public ResponseEntity<PaymentValue> getPaymentValueBy(@PathVariable String snCurrentValue) {
-        PaymentValue valorPagamento = service.findBySnCurrentValue(snCurrentValue);
+    @GetMapping("/{status}")
+    public ResponseEntity<PaymentValue> getPaymentValueBy(@PathVariable("status") PaymentStatus status) {
+        PaymentValue valorPagamento = service.findByStatus(status);
         if (valorPagamento == null) {
             return ResponseEntity.notFound().build();
         }
