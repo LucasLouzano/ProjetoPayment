@@ -1,6 +1,7 @@
 package ProjetoPayment.Payment.service.impl;
 
 import ProjetoPayment.Payment.dto.PaymentValueDTO;
+import ProjetoPayment.Payment.enuns.PaymentStatus;
 import ProjetoPayment.Payment.mapper.PaymentValueMapper;
 import ProjetoPayment.Payment.model.PaymentValue;
 import ProjetoPayment.Payment.repository.PaymentValueRepository;
@@ -20,26 +21,29 @@ public class PaymentValueServiceImpl implements PaymentValueService {
     private PaymentValueMapper mapper;
 
     @Override
-    public PaymentValue findBySnCurrentValue(String snCurrentValue) {
-        return repository.findBySnCurrentValue(snCurrentValue).orElse(null);
+    public PaymentValue findByStatus(PaymentStatus status) {
+        return repository.findByPaymentStatus(status).orElse(null);
     }
+
     @Transactional
     @Override
     public PaymentValueDTO save(PaymentValue paymentValue) {
-        PaymentValue valuePgm = this.findBySnCurrentValue("S");
-        if (valuePgm != null ) {
-            valuePgm.setSnCurrentValue("N");
+        PaymentValue valuePgm = this.findByStatus(PaymentStatus.CURRENT);
+        if (valuePgm != null) {
+            valuePgm.setPaymentStatus(PaymentStatus.BEFORE);
             repository.save(valuePgm);
         }
         PaymentValue newPaymentValue = new PaymentValue();
         newPaymentValue.setValor(paymentValue.getValor());
         newPaymentValue.setData(LocalDateTime.now());
-        newPaymentValue.setSnCurrentValue("S");
+        newPaymentValue.setPaymentStatus(PaymentStatus.CURRENT);
         repository.save(newPaymentValue);
         return mapper.PagValueToPagValueDTO(newPaymentValue);
     }
+
     @Override
     public List<PaymentValue> findAll() {
         return repository.findAll();
     }
+
 }
