@@ -4,7 +4,7 @@ USE payment;
 CREATE TABLE payment (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     valor DOUBLE,
-    snCurrentValue VARCHAR(255),
+    payment_status enum('BEFORE', 'CURRENT')
     data LocalDateTime;
 );
 
