@@ -1,4 +1,4 @@
-package ProjetoPayment.Payment.domain.ports.input;
+package ProjetoPayment.Payment.domain.userCase;
 
 import ProjetoPayment.Payment.domain.dto.PaymentValueDTO;
 import ProjetoPayment.Payment.domain.model.PaymentStatus;
