@@ -1,6 +1,7 @@
-package ProjetoPayment.Payment.adapters.outbound.repositories;
+package ProjetoPayment.Payment.adapters.outbound.repository;
 
 import ProjetoPayment.Payment.adapters.outbound.entity.JpaPaymentValue;
+import ProjetoPayment.Payment.domain.dto.PaymentValueDTO;
 import ProjetoPayment.Payment.domain.model.PaymentStatus;
 import ProjetoPayment.Payment.domain.model.PaymentValue;
 import ProjetoPayment.Payment.domain.model.PaymentValueRepository;
@@ -38,14 +39,15 @@ public class PaymentRepositoryValueImpl implements PaymentValueRepository {
                         entity.getPaymentStatus())).toList();
     }
 
+
     @Override
     public PaymentValue findByStatus(PaymentStatus status) {
-        return repository.findByPaymentStatus(status).
-                map(entity -> new PaymentValue(
+        return repository.findByPaymentStatus(status)
+                .map(entity -> new PaymentValue(
                         entity.getId(),
                         entity.getValor(),
                         entity.getData(),
-                        entity.getPaymentStatus())).orElse(null);
-
+                        entity.getPaymentStatus()))
+                .orElse(null);
     }
 }
