@@ -1,6 +1,4 @@
-package ProjetoPayment.Payment.model;
-
-import ProjetoPayment.Payment.enuns.PaymentStatus;
+package ProjetoPayment.Payment.domain.model;
 
 import java.time.LocalDateTime;
 
