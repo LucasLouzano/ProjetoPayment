@@ -1,17 +1,14 @@
 package ProjetoPayment.Payment.model;
 
 import ProjetoPayment.Payment.enuns.PaymentStatus;
-import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-@Entity
+
 public class PaymentValue {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private double valor;
     private LocalDateTime data;
-    @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
 
     public PaymentValue() {
@@ -28,24 +25,31 @@ public class PaymentValue {
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public double getValor() {
         return valor;
     }
+
     public void setValor(double valor) {
         this.valor = valor;
     }
+
     public LocalDateTime getData() {
         return data;
     }
+
     public void setData(LocalDateTime data) {
         this.data = data;
     }
+
     public PaymentStatus getPaymentStatus() {
         return paymentStatus;
     }
+
     public void setPaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
