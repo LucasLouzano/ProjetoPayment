@@ -1,4 +1,4 @@
-package ProjetoPayment.Payment.enuns;
+package ProjetoPayment.Payment.domain.model;
 
 public enum PaymentStatus {
     CURRENT,
