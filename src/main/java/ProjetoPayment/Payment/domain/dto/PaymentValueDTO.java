@@ -1,5 +1,3 @@
-package ProjetoPayment.Payment.model.dto;
+package ProjetoPayment.Payment.domain.dto;
 
-public record PaymentValueDTO(double valor){
-
-}
+public record PaymentValueDTO (double valor){}
